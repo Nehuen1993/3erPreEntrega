@@ -1,0 +1,21 @@
+<h1>Bienvenido {{first_name}} </h1>
+<p> Mail: {{email}}</p>
+<p> Edad: {{age}}</p>
+<p> Administrador: NO</p>
+
+<p>Productos</p>
+
+<ul>
+        {{#each carrito}}
+            <li>{{ this.nombre }} - Precio: {{ this.precio}}- Cantidad: {{ this.cantidad}}</li>
+        {{/each}}
+    </ul>
+ <p>Total: {{total}}</p>
+<form method="POST" action="correo">
+    <button type="submit">Comprar</button>
+</form>   
+      
+
+<form method="GET" action="logout">
+    <button type="submit">Cerrar sesión</button>
+</form>

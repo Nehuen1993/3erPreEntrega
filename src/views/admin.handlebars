@@ -1,0 +1,109 @@
+<h1>Bienvenido {{first_name}} </h1>
+<p> Mail: {{email}}</p>
+<p> Edad: {{age}}</p>
+<p> Administrador: SI</p>
+
+<p>Producotos disponibles</p>
+
+<ul>
+        {{#each products}}
+            <li>{{ this.nombre }} - Precio: {{ this.precio }} - Stock: {{ this.stock }} - ID: {{ this._id}}
+            </li>
+        {{/each}}
+    </ul>
+      
+    <form method="POST" action="agregar">
+    <label for="nombre">nombre</label>
+    <input type="text" name="nombre" required>
+    <label for="categoria">categoria</label>
+    <input type="text" name="categoria" required>
+    <label for="precio ">precio</label>
+    <input type="text" name="precio" required>
+    <label for="stock">stock</label>
+    <input type="text" name="stock" required>
+    <label for="imagen">imagen</label>
+    <input type="text" name="imagen" required>
+
+<button type="submit">agregar producto</button>
+</form>
+
+<form method="PUT" action="javascript:void(0);" id="update-form">
+    <label for="nombre">nombre</label>
+    <input type="text" name="nombre" required>
+    <label for="categoria">categoria</label>
+    <input type="text" name="categoria" required>
+    <label for="precio">precio</label>
+    <input type="text" name="precio" required>
+    <label for="stock">stock</label>
+    <input type="text" name="stock" required>
+    <label for="imagen">imagen</label>
+    <input type="text" name="imagen" required>
+    <label for="id">id</label>
+    <input type="text" name="id" required>
+
+    <button type="button" id="update-button">modificar producto</button>
+</form>
+
+<script>
+document.getElementById('update-button').addEventListener('click', () => {
+    const form = document.getElementById('update-form');
+    const formData = new FormData(form);
+
+    fetch('/api/sessions/update', {
+        method: 'PUT',
+        body: JSON.stringify(Object.fromEntries(Array.from(formData.entries()))),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            window.location.reload()
+        } else {
+            console.log('Error:', response.statusText);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+</script>
+
+
+<form method="DELETE" action="/api/sessions/delete" id="delete-form">
+    <label for="id">ID</label>
+    <input type="text" name="id" required>
+    <button type="button" id="delete-button">Eliminar</button>
+</form>
+<script>
+document.getElementById('delete-button').addEventListener('click', () => {
+    const form = document.getElementById('delete-form');
+    const formData = new FormData(form);
+
+    const id = formData.get('id');
+
+    fetch('/api/sessions/delete', {
+        method: 'DELETE',
+        body: JSON.stringify({ id }), 
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.status === 200) {
+            window.location.reload()
+        } else {
+            console.log('Error:', response.statusText);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+
+</script>
+
+<form method="GET" action="logout">
+    <button type="submit">Cerrar sesión</button>
+</form>
