@@ -20,7 +20,7 @@ export const postLogin = async (req, res) => {
     if (!email || !password) return res.status(400).render("login", { error: "Valores erroneos" });
    console.log (userServices)
    
-    const user = await userServices.findOne({ email }, { first_name: 1, last_name: 1, age: 1, password: 1, email: 1 , isAdmin: 1 });
+    const user = await userServices.findOne({ email }, { first_name: 1, last_name: 1, age: 1, password: 1, email: 1 , isAdmin: 1, telefono: 1, _id: 1 });
     
         let products= await productos.find()
         req.session.products = products
@@ -41,8 +41,10 @@ export const postLogin = async (req, res) => {
         email: user.email,
         age: user.age,
         isAdmin: user.isAdmin,
+        telefono: user.telefono,
         id: user._id
     };
+
     
 
     if (user.isAdmin == false) {

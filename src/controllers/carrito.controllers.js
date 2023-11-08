@@ -6,7 +6,7 @@ import twilio from 'twilio';
 
 
 const TWILIO_ACCOUNT_SID = "ACed11036747b3250e4edb5c558f448a60"
-const TWILIO_AUTH_TOKEN = "8c806895b3b28e4340fc563bd3b27ca1"
+const TWILIO_AUTH_TOKEN = "7e768a29f9c731793131bb179497d906"
 const TWILIO_NUMBER = "+12012283519"
 
 
@@ -123,7 +123,10 @@ export const getCarrito = async(req, res) => {
         export const postCorreo = async(req, res) => {
 
         
-            const { first_name, last_name, email, } = req.session.user
+            const { first_name, last_name, email, telefono} = req.session.user
+            const number = "+" + telefono
+
+            console.log("el numero de telefono es " + number)
 
             const mailOptions = {
                 from: "nehuengiannone@gmail.com",
@@ -137,7 +140,7 @@ export const getCarrito = async(req, res) => {
         let result = await client.messages.create({
                 body: "gracias por tu compra",
                 from: TWILIO_NUMBER,
-                to: "+541161081208"
+                to: number,
                
              })
          

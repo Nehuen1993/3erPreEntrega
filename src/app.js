@@ -5,6 +5,8 @@ import bodyParser from 'body-parser'
 import handlebars from 'express-handlebars'
 import MongoStore from 'connect-mongo'
 import usersRouter from './routes/user.routes.js'
+import carritoRouter from './routes/carrito.routes.js'
+import productRouter from './routes/product.routes.js'
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -42,6 +44,8 @@ app.engine('handlebars', handlebars.engine())
 app.set('views', __dirname + '/views')
 app.set('view engine', 'handlebars')
 app.use('/api/sessions', usersRouter)
+app.use('/api/sessions', carritoRouter)
+app.use('/api/sessions', productRouter)
 
 app.get('/', (req, res) => {
     res.send('Express Sessions!')

@@ -8,7 +8,7 @@ export const getProducto = async(req, res) => {
                 return res.redirect("login")
             }
         
-            const { first_name, last_name, email, age, isAdmin, _id} = req.session.user
+            const { first_name, last_name, email, age, isAdmin, _id, telefono} = req.session.user
             try {
                
                 const products= await productos.find();
@@ -20,7 +20,7 @@ export const getProducto = async(req, res) => {
                     };
                 });
                 
-                res.render("producto", { first_name, last_name, age, email, isAdmin, products: productsWithOwnProperties });
+                res.render("producto", { first_name, last_name, age, email, isAdmin, telefono, products: productsWithOwnProperties });
                 
             } catch (error) {
                 console.error("Error al obtener productos:", error);
